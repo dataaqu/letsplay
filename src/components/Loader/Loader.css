@@ -1,0 +1,71 @@
+/* Safari-friendly animations for the loader */
+@keyframes safariPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+@-webkit-keyframes safariPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.safari-friendly-pulse {
+  animation: safariPulse 1.5s ease-in-out infinite;
+  -webkit-animation: safariPulse 1.5s ease-in-out infinite;
+}
+
+/* Safari-specific rotation animation */
+@keyframes safariRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@-webkit-keyframes safariRotate {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+.safari-friendly-rotate {
+  animation: safariRotate 4s linear infinite;
+  -webkit-animation: safariRotate 4s linear infinite;
+  /* Prevent blurry text in Safari */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Safari-friendly shadow animation */
+@keyframes safariShadowPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+@-webkit-keyframes safariShadowPulse {
+  0%, 100% { opacity: 0.3; -webkit-transform: scale(1); }
+  50% { opacity: 0.5; -webkit-transform: scale(1.2); }
+}
+
+.safari-friendly-shadow {
+  animation: safariShadowPulse 1s ease-in-out infinite;
+  -webkit-animation: safariShadowPulse 1s ease-in-out infinite;
+}
+
+/* Fix for Safari rendering issues with 3D transforms */
+.perspective-1000 {
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Safari-specific optimization for animations */
+@supports (-webkit-touch-callout: none) {
+  /* Fix for animation glitches in Safari */
+  .animate-simple-bounce,
+  .safari-friendly-pulse,
+  .safari-friendly-rotate,
+  .safari-friendly-shadow {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}

@@ -1,0 +1,410 @@
+/* Modal backdrop animations */
+.modal-overlay {
+  animation: fadeIn 0.3s ease-in-out;
+  -webkit-animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+  animation: slideIn 0.3s ease-out;
+  -webkit-animation: slideIn 0.3s ease-out;
+  will-change: transform, opacity; /* Performance optimization for animations */
+  transform: translateZ(0); /* Force hardware acceleration in Safari */
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Mobile input stylings */
+.mobile-input, .mobile-select {
+  font-size: 16px !important; /* Prevent iOS zoom */
+  padding: 8px 12px !important;
+  -webkit-appearance: none; /* Remove default iOS styling */
+  appearance: none;
+  border-radius: 8px;
+  border: 1px solid rgba(209, 213, 219, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
+  /* Add active state feedback */
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+
+/* Transition animations with Safari prefixes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@-webkit-keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@-webkit-keyframes slideIn {
+  from { -webkit-transform: translateY(10px); opacity: 0; }
+  to { -webkit-transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(10px); opacity: 0; }
+}
+@-webkit-keyframes slideOut {
+  from { -webkit-transform: translateY(0); opacity: 1; }
+  to { -webkit-transform: translateY(10px); opacity: 0; }
+}
+
+/* Delay utility classes */
+.delay-0 { animation-delay: 0ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+.delay-900 { animation-delay: 900ms; }
+
+/* Perspective for 3D effects */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Mobile-specific modal adjustments */
+@media (max-width: 640px) {
+  .modal-content {
+    max-height: 85vh;
+    border-radius: 1rem 1rem 0 0;
+    margin-top: auto;
+    margin-bottom: 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100% !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    overscroll-behavior: contain; /* Prevent scroll leaking */
+    padding-bottom: env(safe-area-inset-bottom, 16px); /* Handle iPhone notch */
+  }
+  
+  /* Improved swipe indicator */
+  .modal-content::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 36px;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    transform: translateX(-50%);
+  }
+  
+  /* Adjust input spacing for mobile */
+  .space-y-4 {
+    margin-top: 0.5rem;
+  }
+  
+  /* Larger touch targets for form elements */
+  form button, 
+  form input,
+  form select {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+  
+  /* Prevent zoom on focus for iOS */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  .modal-content::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 36px;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(100%); opacity: 0.8; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @-webkit-keyframes slideIn {
+    from { -webkit-transform: translateY(100%); opacity: 0.8; }
+    to { -webkit-transform: translateY(0); opacity: 1; }
+  }
+  
+  @keyframes slideOut {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100%); opacity: 0.8; }
+  }
+  @-webkit-keyframes slideOut {
+    from { -webkit-transform: translateY(0); opacity: 1; }
+    to { -webkit-transform: translateY(100%); opacity: 0.8; }
+  }
+  
+  /* Improve form field sizes for touch input */
+  input, select, textarea {
+    font-size: 16px !important; /* Prevent zoom on iOS */
+    padding: 10px 12px !important;
+  }
+  
+  /* Improved focus states for better accessibility */
+  input:focus, select:focus, textarea:focus, button:focus {
+    outline: 2px solid rgba(59, 130, 246, 0.5);
+    outline-offset: 2px;
+  }
+  
+  /* Touch feedback for mobile swipe */
+  .touch-active {
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+  }
+  
+  /* Mobile input optimizations */
+  .mobile-input, .mobile-select {
+    font-size: 16px !important; /* Prevent iOS zoom */
+    padding: 8px 12px !important;
+    -webkit-appearance: none; /* Remove default iOS styling */
+    appearance: none;
+    border-radius: 8px;
+    border: 1px solid rgba(209, 213, 219, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .mobile-input:focus, .mobile-select:focus {
+    border-color: rgba(59, 130, 246, 0.8);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+    outline: none;
+  }
+  
+  /* Improve touch interactions */
+  .mobile-input:active, .mobile-select:active {
+    background-color: rgba(243, 244, 246, 0.9);
+  }
+  
+  /* Style for the time input */
+  input[type="time"].mobile-input {
+    min-height: 44px;
+    -webkit-appearance: none;
+    appearance: none;
+    font-size: 16px !important;
+    padding-left: 36px !important; /* Increased for better touch target */
+    border-radius: 8px;
+    min-width: 100%;
+    color: #374151;
+    background-color: #fff;
+  }
+  
+  /* Specific fixes for iOS time input */
+  @supports (-webkit-touch-callout: none) {
+    input[type="time"].mobile-input {
+      background-color: #f9fafb; /* Slightly different background on iOS */
+      position: relative;
+      z-index: 1; /* Ensure proper stacking */
+      padding-top: 9px !important;
+      padding-bottom: 9px !important;
+    }
+    
+    /* Enhance the tap area */
+    .mt-1.sm\\:mt-2.relative {
+      position: relative;
+    }
+    
+    /* Fix for iOS icons in inputs */
+    .absolute.inset-y-0.left-0.pl-3.flex.items-center.pointer-events-none svg {
+      height: 20px;
+      width: 20px;
+    }
+  }
+  
+  /* Style for date inputs */
+  input[type="date"].mobile-input {
+    min-height: 44px;
+    -webkit-appearance: none;
+    appearance: none;
+    font-size: 16px !important;
+    padding-left: 36px !important;
+    border-radius: 8px;
+    min-width: 100%;
+  }
+  
+  /* Improve dropdown appearance */
+  .mobile-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .modal-content {
+    max-width: 85% !important;
+  }
+  
+  /* Slightly larger touch targets for tablets */
+  button {
+    min-height: 36px;
+    min-width: 36px;
+  }
+}
+
+/* Add a bounce effect for modals on small devices */
+@media (max-width: 480px) {
+  .modal-content {
+    animation: bouncySlideIn 0.4s ease-out;
+  }
+  
+  @keyframes bouncySlideIn {
+    0% { transform: translateY(100%); }
+    70% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+  }
+  @-webkit-keyframes bouncySlideIn {
+    0% { -webkit-transform: translateY(100%); }
+    70% { -webkit-transform: translateY(-5px); }
+    100% { -webkit-transform: translateY(0); }
+  }
+  
+  /* Modal exit animation */
+  .animate-slideOut {
+    animation: quickSlideOut 0.25s ease-in forwards;
+    -webkit-animation: quickSlideOut 0.25s ease-in forwards;
+  }
+  
+  @keyframes quickSlideOut {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(100%); opacity: 0; }
+  }
+  @-webkit-keyframes quickSlideOut {
+    0% { -webkit-transform: translateY(0); opacity: 1; }
+    100% { -webkit-transform: translateY(100%); opacity: 0; }
+  }
+}
+
+/* Improved scroll handling for iOS */
+@supports (-webkit-touch-callout: none) {
+  .modal-content {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* iOS specific date/time input fixes */
+@supports (-webkit-touch-callout: none) {
+  /* iPhone specific date/time picker optimizations */
+  input[type="time"], input[type="date"] {
+    position: relative;
+    display: block;
+    -webkit-appearance: none;
+    appearance: none;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    min-height: 44px !important;
+    /* Better visual cues for tappable elements */
+    cursor: pointer;
+    /* Remove iOS default styling */
+    border-radius: 8px !important;
+  }
+  
+  /* Larger touch targets for mobile inputs */
+  .mobile-input, .mobile-select {
+    min-height: 44px !important;
+    padding: 10px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* Touch active state for inputs */
+.touch-active {
+  background-color: rgba(243, 244, 246, 0.8) !important;
+  transform: scale(1.01);
+  -webkit-transform: scale(1.01);
+  transition: all 0.15s ease;
+  -webkit-transition: all 0.15s ease;
+}
+
+/* Form validation animation for mobile */
+@keyframes shakeInput {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+@-webkit-keyframes shakeInput {
+  0%, 100% { -webkit-transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { -webkit-transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { -webkit-transform: translateX(4px); }
+}
+
+.invalid-input {
+  animation: shakeInput 0.8s cubic-bezier(.36,.07,.19,.97) both;
+  -webkit-animation: shakeInput 0.8s cubic-bezier(.36,.07,.19,.97) both;
+  border-color: rgba(220, 38, 38, 0.8) !important;
+  background-color: rgba(254, 242, 242, 0.9) !important;
+  transform: translateZ(0); /* Force hardware acceleration */
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Special class for Safari transform handling */
+.transform-fix {
+  /* Force hardware acceleration */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  /* Fix for Safari's blurry text during animations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Safari-specific animation fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Remove default tap highlight color in Safari */
+  .modal-content button,
+  .modal-content a,
+  .modal-content input,
+  .modal-content select {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Fix for Safari's flickering issue with fixed position elements */
+  .modal-content {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  /* Fix transition glitches in Safari */
+  .transition-all,
+  .transition-colors,
+  .transition-opacity,
+  .transition-transform {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}

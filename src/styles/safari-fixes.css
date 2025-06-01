@@ -1,0 +1,134 @@
+/* Safari animation fixes for the entire application */
+
+/* Apply these fixes to all elements with animations */
+.animate-pulse,
+.animate-bounce,
+.animate-simple-bounce,
+.animate-fadeIn,
+.animate-fadeOut,
+.animate-slideIn,
+.animate-slideOut,
+.transition-all {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Safari-specific delay utility classes with better performance */
+@supports (-webkit-touch-callout: none) {
+  .delay-0 { 
+    -webkit-animation-delay: 0ms;
+    animation-delay: 0ms;
+  }
+  .delay-100 { 
+    -webkit-animation-delay: 100ms;
+    animation-delay: 100ms;
+  }
+  .delay-200 { 
+    -webkit-animation-delay: 200ms;
+    animation-delay: 200ms;
+  }
+  .delay-300 { 
+    -webkit-animation-delay: 300ms;
+    animation-delay: 300ms;
+  }
+  .delay-400 { 
+    -webkit-animation-delay: 400ms;
+    animation-delay: 400ms;
+  }
+  .delay-500 { 
+    -webkit-animation-delay: 500ms;
+    animation-delay: 500ms;
+  }
+  .delay-600 { 
+    -webkit-animation-delay: 600ms;
+    animation-delay: 600ms;
+  }
+  .delay-700 { 
+    -webkit-animation-delay: 700ms;
+    animation-delay: 700ms;
+  }
+  .delay-800 { 
+    -webkit-animation-delay: 800ms;
+    animation-delay: 800ms;
+  }
+  .delay-900 { 
+    -webkit-animation-delay: 900ms;
+    animation-delay: 900ms;
+  }
+}
+
+/* Fix for transform-origin animations in Safari */
+[style*="transform"] {
+  transform-style: flat;
+  -webkit-transform-style: flat;
+}
+
+/* Fix for 3D animations in Safari */
+.perspective-1000,
+.modal-content,
+.match-card {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Safari-specific optimizations for transitions */
+@supports (-webkit-touch-callout: none) {
+  .transition-all {
+    -webkit-transition-property: all;
+    transition-property: all;
+  }
+  
+  .transition-transform {
+    -webkit-transition-property: -webkit-transform;
+    transition-property: transform;
+  }
+  
+  .transition-opacity {
+    -webkit-transition-property: opacity;
+    transition-property: opacity;
+  }
+}
+
+/* Specific fixes for Safari transition glitches */
+@supports (-webkit-touch-callout: none) {
+  /* Fix for Safari's issue with combining transforms and opacity transitions */
+  .transform-fix {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-perspective: 1000;
+  }
+  
+  /* Reduce animation complexity for Safari */
+  @media (max-width: 640px) {
+    .animate-simple-bounce,
+    .safari-friendly-pulse,
+    .safari-friendly-rotate {
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+    }
+    
+    /* Fix for Safari's flickering during touch events */
+    .mobile-touch-target,
+    .button-group button,
+    a[href] {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Improve animation performance in Safari */
+    .match-card,
+    .modal-content,
+    .modal-overlay {
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
+    }
+  }
+}

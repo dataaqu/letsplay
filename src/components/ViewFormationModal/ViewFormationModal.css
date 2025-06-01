@@ -1,0 +1,205 @@
+/* ViewFormationModal specific styles */
+
+/* Default style for the pitch background */
+.pitch-background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Portrait mode for mobile devices */
+@media (max-width: 640px) {
+  .pitch-background.portrait-mode {
+    background-size: cover !important;
+    background-position: center center !important;
+    object-fit: cover !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  
+  /* Ensure the container properly fills the screen */
+  .pitch-background-container {
+    overflow: hidden !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  
+  /* Change grid to 3 columns and 6 rows on mobile */
+  .formation-grid.portrait-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: repeat(6, 1fr) !important;
+    gap: 0.5rem !important;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  /* Make player icons bigger on mobile */
+  .formation-grid img {
+    width: 48px !important;
+    height: 48px !important;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.6));
+  }
+  
+  .formation-grid span {
+    font-size: 0.75rem;
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 4px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Safari-specific optimizations */
+  @supports (-webkit-touch-callout: none) {
+    .pitch-background.portrait-mode {
+      /* Additional Safari optimizations */
+      -webkit-perspective: 1000;
+      perspective: 1000;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      background-size: cover !important;
+      background-position: center center !important;
+      background-repeat: no-repeat;
+      object-fit: cover !important;
+      height: 100% !important;
+      width: 100% !important;
+    }
+  }
+}
+
+/* For landscape mode on mobile devices */
+@media (max-width: 640px) and (orientation: landscape) {
+  .pitch-background.landscape-mode {
+    /* No rotation, just scaling */
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    background-size: cover !important;
+  }
+  
+  .formation-grid.landscape-grid {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+}
+
+/* For extremely small screens */
+@media (max-width: 375px) {
+  .formation-grid.portrait-grid {
+    gap: 0.25rem !important;
+    padding: 0.5rem;
+  }
+  
+  .formation-grid img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  .formation-grid span {
+    font-size: 0.7rem;
+    max-width: 75px;
+    padding: 1px 4px;
+  }
+}
+
+/* Better touch interactions */
+@media (hover: none) and (pointer: coarse) {
+  .formation-grid img {
+    -webkit-transition: -webkit-transform 0.2s ease;
+    transition: transform 0.2s ease;
+  }
+  
+  .formation-grid img:active {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  
+  /* Improve close button touch target */
+  button[title="Close"] {
+    padding: 0.75rem !important;
+  }
+}
+
+/* Mobile-specific grid positioning for 3x6 layout */
+@media (max-width: 640px) {
+  /* Team 1 positioning in mobile 3x6 grid */
+  /* Team 1 GK - row 1, col 2 */
+  .mobile-grid-item[data-mobile-pos="1,2"] {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  
+  /* Team 1 P1 - row 2, col 1 */
+  .mobile-grid-item[data-mobile-pos="2,1"] {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  
+  /* Team 1 P2 - row 2, col 3 */
+  .mobile-grid-item[data-mobile-pos="2,3"] {
+    grid-column: 3;
+    grid-row: 2;
+  }
+  
+  /* Team 1 P3 - row 3, col 1 */
+  .mobile-grid-item[data-mobile-pos="3,1"] {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  
+  /* Team 1 P4 - row 3, col 3 */
+  .mobile-grid-item[data-mobile-pos="3,3"] {
+    grid-column: 3;
+    grid-row: 3;
+  }
+  
+  /* Team 2 P1 - row 4, col 1 */
+  .mobile-grid-item[data-mobile-pos="4,1"] {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  
+  /* Team 2 P2 - row 4, col 3 */
+  .mobile-grid-item[data-mobile-pos="4,3"] {
+    grid-column: 3;
+    grid-row: 4;
+  }
+  
+  /* Team 2 P3 - row 5, col 1 */
+  .mobile-grid-item[data-mobile-pos="5,1"] {
+    grid-column: 1;
+    grid-row: 5;
+  }
+  
+  /* Team 2 P4 - row 5, col 3 */
+  .mobile-grid-item[data-mobile-pos="5,3"] {
+    grid-column: 3;
+    grid-row: 5;
+  }
+  
+  /* Team 2 GK - row 6, col 2 */
+  .mobile-grid-item[data-mobile-pos="6,2"] {
+    grid-column: 2;
+    grid-row: 6;
+  }
+}

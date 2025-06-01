@@ -1,0 +1,91 @@
+/* Match Card responsive styles */
+.match-card {
+  transition: all 0.3s ease;
+  will-change: transform; /* Performance optimization for mobile devices */
+}
+
+/* Mobile touch feedback */
+@media (max-width: 640px) {
+  .match-card:active {
+    transform: scale(0.98);
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .action-label {
+    display: none;
+  }
+}
+
+/* Custom animations for mobile interactions */
+@keyframes tapPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+@-webkit-keyframes tapPulse {
+  0% { -webkit-transform: scale(1); }
+  50% { -webkit-transform: scale(0.97); }
+  100% { -webkit-transform: scale(1); }
+}
+
+.tap-pulse {
+  animation: tapPulse 0.3s ease;
+  -webkit-animation: tapPulse 0.3s ease;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Improve touch targets on mobile */
+@media (max-width: 480px) {
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Add active states for better touch feedback */
+  .mobile-touch-target:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    /* Prevent Safari flickering */
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Add pull-to-refresh style animation for cards on mobile */
+@media (max-width: 640px) {
+  .match-card {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .match-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, transparent, rgba(59, 130, 246, 0.6), transparent);
+    transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    -webkit-transition: -webkit-transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .match-card:active::after {
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    opacity: 1;
+  }
+}
