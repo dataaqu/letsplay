@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import stadiumsData from '../../data/stadiums.json';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import '../../styles/modal.css';
@@ -16,6 +16,13 @@ function MatchModal({ isOpen, onClose, onSubmit, initialData }) {
   const timeInputRef = useRef(null);
   const touchStartY = useRef(0);
   const touchEndY = useRef(0);
+
+  const handleClose = useCallback(() => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }, [onClose]);
 
   // Initialize form when modal opens or when editing
   useEffect(() => {
@@ -52,7 +59,7 @@ function MatchModal({ isOpen, onClose, onSubmit, initialData }) {
         document.removeEventListener('keydown', handleEscKey);
       };
     }
-  }, [isOpen, initialData]);
+  }, [isOpen, initialData, handleClose]);
 
   // Update players arrays when stadium changes
   useEffect(() => {
@@ -79,20 +86,20 @@ function MatchModal({ isOpen, onClose, onSubmit, initialData }) {
   // Handle scroll events to show/hide scroll-to-top button
   useEffect(() => {
     if (isOpen && modalRef.current) {
+      const modalElement = modalRef.current; // Capture the current value
+      
       const handleScroll = () => {
-        if (modalRef.current.scrollTop > 300) {
+        if (modalElement.scrollTop > 300) {
           setShowScrollTop(true);
         } else {
           setShowScrollTop(false);
         }
       };
       
-      modalRef.current.addEventListener('scroll', handleScroll);
+      modalElement.addEventListener('scroll', handleScroll);
       
       return () => {
-        if (modalRef.current) {
-          modalRef.current.removeEventListener('scroll', handleScroll);
-        }
+        modalElement.removeEventListener('scroll', handleScroll);
       };
     }
   }, [isOpen]);
@@ -100,11 +107,13 @@ function MatchModal({ isOpen, onClose, onSubmit, initialData }) {
   // Focus handling for accessibility
   useEffect(() => {
     if (isOpen && modalRef.current) {
+      const modalElement = modalRef.current; // Capture the current value
+      
       // Set focus to the modal when it opens
-      modalRef.current.focus();
+      modalElement.focus();
       
       // Trap focus within the modal
-      const focusableElements = modalRef.current.querySelectorAll(
+      const focusableElements = modalElement.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
       
@@ -124,10 +133,10 @@ function MatchModal({ isOpen, onClose, onSubmit, initialData }) {
           }
         };
         
-        modalRef.current.addEventListener('keydown', handleTabKey);
+        modalElement.addEventListener('keydown', handleTabKey);
         
         return () => {
-          modalRef.current?.removeEventListener('keydown', handleTabKey);
+          modalElement.removeEventListener('keydown', handleTabKey);
         };
       }
     }
@@ -186,13 +195,6 @@ function MatchModal({ isOpen, onClose, onSubmit, initialData }) {
       newPlayers[index] = value;
       setTeam2Players(newPlayers);
     }
-  };
-
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      onClose();
-    }, 300);
   };
 
   // Swipe handling for mobile
