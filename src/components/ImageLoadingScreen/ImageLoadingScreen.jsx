@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import imagePreloader from '../../utils/imagePreloader';
 import ballImage from '../../imgs/ball.png';
 import './ImageLoadingScreen.css';
@@ -7,6 +7,11 @@ function ImageLoadingScreen({ onLoadComplete, children }) {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasStartedLoading, setHasStartedLoading] = useState(false);
+
+  // Memoize the onLoadComplete callback to prevent unnecessary re-renders
+  const memoizedOnLoadComplete = useCallback(() => {
+    onLoadComplete?.();
+  }, [onLoadComplete]);
 
   useEffect(() => {
     // Prevent multiple loading attempts
@@ -42,12 +47,10 @@ function ImageLoadingScreen({ onLoadComplete, children }) {
         }
 
         // Load secondary images in background
-        imagePreloader.preloadSecondaryImages();
-
-        if (mounted) {
+        imagePreloader.preloadSecondaryImages();        if (mounted) {
           setTimeout(() => {
             setIsLoading(false);
-            onLoadComplete?.();
+            memoizedOnLoadComplete();
           }, 500);
         }
       } catch (error) {
@@ -55,15 +58,16 @@ function ImageLoadingScreen({ onLoadComplete, children }) {
         if (mounted) {
           // Even if images fail, show the app
           setIsLoading(false);
-          onLoadComplete?.();
+          memoizedOnLoadComplete();
         }
       }
     };
 
-    loadImages();    return () => {
+    loadImages();
+    return () => {
       mounted = false;
     };
-  }, []); // Empty dependency array to run only once
+  }, [hasStartedLoading, memoizedOnLoadComplete]); // Include dependencies
 
   if (!isLoading) {
     return children;
