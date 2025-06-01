@@ -6,6 +6,12 @@ function ImageLoadingScreen({ onLoadComplete, children }) {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const hasStarted = useRef(false);
+  const onLoadCompleteRef = useRef();
+
+  // Keep the callback reference updated
+  useEffect(() => {
+    onLoadCompleteRef.current = onLoadComplete;
+  }, [onLoadComplete]);
 
   useEffect(() => {
     // Prevent multiple executions
@@ -31,11 +37,11 @@ function ImageLoadingScreen({ onLoadComplete, children }) {
       await new Promise(resolve => setTimeout(resolve, 300));
       
       setIsLoading(false);
-      onLoadComplete?.();
+      onLoadCompleteRef.current?.();
     };
 
     simulateLoading();
-  }, []); // Empty dependency array
+  }, []); // Empty dependency array - no dependencies needed
 
   if (!isLoading) {
     return children;
