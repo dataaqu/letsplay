@@ -47,6 +47,36 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://dataaqu.github.io/letsplay" />
     
+    <!-- Resource hints for critical images -->
+    <link rel="preload" href="./logo.png" as="image" type="image/png">
+    
+    <!-- DNS prefetch for better performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    
+    <!-- Critical CSS inline to prevent render blocking -->
+    <style>
+      /* Critical loading styles */
+      .loading-skeleton {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+      
+      @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+      
+      /* Prevent layout shift */
+      .aspect-ratio-16-9 {
+        aspect-ratio: 16 / 9;
+      }
+      
+      .aspect-ratio-1-1 {
+        aspect-ratio: 1 / 1;
+      }
+    </style>
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

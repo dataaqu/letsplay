@@ -107,7 +107,7 @@ function ViewFormationModal({ isOpen, onClose, team1Players, team2Players, match
   if (!isOpen) return null;
 
   return (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center ${
+    <div className={`fixed inset-0 z-50 flex ${isMobile ? 'items-start justify-center pt-4' : 'items-center justify-center'} ${
       isClosing ? 'animate-fadeOut' : 'animate-fadeIn'
     }`}>
       {/* Dark overlay */}
@@ -118,7 +118,7 @@ function ViewFormationModal({ isOpen, onClose, team1Players, team2Players, match
       
       {/* Modal */}
       <div 
-        className={`relative w-[95%] md:w-5/6 h-[80vh] rounded-xl shadow-2xl overflow-hidden transform transition-all duration-300 modal-content ${
+        className={`relative w-[95%] md:w-5/6 ${isMobile ? 'h-[100vh] max-h-[90vh]' : 'h-[80vh]'} rounded-xl shadow-2xl overflow-hidden transform transition-all duration-300 modal-content ${
           isClosing ? 'animate-slideOut opacity-0 translate-y-4' : 'animate-slideIn opacity-100 translate-y-0'
         }`}
         onClick={e => e.stopPropagation()}

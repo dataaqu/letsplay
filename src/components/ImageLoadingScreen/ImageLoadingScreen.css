@@ -1,0 +1,147 @@
+/* Enhanced bouncing ball animations for ImageLoadingScreen */
+
+/* Simple up and down bounce animation */
+@keyframes pureVerticalBounce {
+  0%, 100% { 
+    transform: translateY(0) scale(1);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% { 
+    transform: translateY(-30px) scale(1.05);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* Safari-compatible version */
+@-webkit-keyframes pureVerticalBounce {
+  0%, 100% { 
+    -webkit-transform: translateY(0) scale(1);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% { 
+    -webkit-transform: translateY(-30px) scale(1.05);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.bouncing-ball {
+  animation: pureVerticalBounce 1s ease-in-out infinite;
+  -webkit-animation: pureVerticalBounce 1s ease-in-out infinite;
+  /* Hardware acceleration for smoother animation */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Enhanced shadow animation that follows the ball's vertical movement */
+@keyframes verticalShadowBounce {
+  0%, 100% { 
+    transform: translateX(-50%) scale(1);
+    opacity: 0.4;
+  }
+  50% { 
+    transform: translateX(-50%) scale(0.7);
+    opacity: 0.2;
+  }
+}
+
+@-webkit-keyframes verticalShadowBounce {
+  0%, 100% { 
+    -webkit-transform: translateX(-50%) scale(1);
+    opacity: 0.4;
+  }
+  50% { 
+    -webkit-transform: translateX(-50%) scale(0.7);
+    opacity: 0.2;
+  }
+}
+
+.ball-shadow {
+  animation: verticalShadowBounce 1s ease-in-out infinite;
+  -webkit-animation: verticalShadowBounce 1s ease-in-out infinite;
+}
+
+/* Enhanced dot animation with more natural bounce */
+@keyframes dotBounce {
+  0%, 80%, 100% { 
+    transform: scale(0.8) translateY(0);
+    opacity: 0.7;
+  }
+  40% { 
+    transform: scale(1.2) translateY(-8px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes dotBounce {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0.8) translateY(0);
+    opacity: 0.7;
+  }
+  40% { 
+    -webkit-transform: scale(1.2) translateY(-8px);
+    opacity: 1;
+  }
+}
+
+.loading-dot {
+  animation: dotBounce 1.2s ease-in-out infinite;
+  -webkit-animation: dotBounce 1.2s ease-in-out infinite;
+}
+
+/* Perspective container for 3D effects */
+.perspective-1000 {
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* Letter wave animation for loading text */
+@keyframes letterWave {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes letterWave {
+  0%, 60%, 100% {
+    -webkit-transform: translateY(0);
+    opacity: 0.7;
+  }
+  30% {
+    -webkit-transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+.letter-wave {
+  animation: letterWave 2s ease-in-out infinite;
+  -webkit-animation: letterWave 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Glowing effect for the ball */
+.ball-glow {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)) 
+          drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+  -webkit-filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)) 
+                  drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+}
+
+/* Safari-specific optimizations */
+@supports (-webkit-touch-callout: none) {
+  .bouncing-ball,
+  .ball-shadow,
+  .loading-dot,
+  .letter-wave {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
